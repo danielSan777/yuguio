@@ -18,26 +18,34 @@ class _CartaCarruselState extends State<CartaCarrusel>{
     
     final size=MediaQuery.of(context).size;
     
-    return Container(
-       width:double.infinity,
-       height:size.height*0.8,
-       color:Colors.red,
-       child:Swiper(itemCount:10,
-       layout:SwiperLayout.STACK,
-       itemWidth:size.width*0.6,
-       itemHeight:size.height*0.7,
-       itemBuilder:(context,index){
-         
-         return ClipRRect(
-           borderRadius:BorderRadius.circular(20),
-           child:FadeInImage(
-            placeholder:AssetImage('assets/no-image.jpg'),
-            image:NetworkImage('https://images.ygoprodeck.com/images/cards/34541863.jpg')),
-            
-         );
-
-       },
-       ),
+    return SafeArea(
+      child:Container(
+         width:double.infinity,
+         height:size.height*0.8,
+         color:Colors.red,
+         child:Swiper(itemCount:10,
+         layout:SwiperLayout.STACK,
+         itemWidth:size.width*0.6,
+         itemHeight:size.height*0.7,
+         itemBuilder:(context,index){
+           
+           return GestureDetector(
+             onTap:(){
+                print("onTap------>");
+                Navigator.pushNamed(context,"DetalleCarta",arguments:"a");              
+             },
+             child:ClipRRect(
+               borderRadius:BorderRadius.circular(20),
+               child:FadeInImage(
+                placeholder:AssetImage('assets/no-image.jpg'),
+                image:NetworkImage('https://images.ygoprodeck.com/images/cards/34541863.jpg')),
+                
+             ),
+           );
+      
+         },
+         ),
+      ),
     );
   }
   
