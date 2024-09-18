@@ -72,7 +72,6 @@ class CartaService{
         final response=await http.get(url, headers:{
         'Content-Type':'application/json',
         });
-        print("cartas limitadas");
         cartaResponse=cardResponseFromJson(utf8.decode(response.bodyBytes));
         
 

@@ -60,7 +60,6 @@ class CartaProvider extends ChangeNotifier{
          }catch(ex){
              
              if(ex is  ExceptionControlada){
-                print("error->"+ex.mensaje);
              }
              
          }
@@ -97,7 +96,6 @@ class CartaProvider extends ChangeNotifier{
             }
             
             listCarta=List.from(cartasUsables);
-            print("llegue a final");
             notifyListeners();
             
          }catch(ex){
