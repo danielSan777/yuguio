@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
 import 'package:http/http.dart' as http;
+import 'package:ygoprodeck/model/arquitepo_model.dart';
 import 'package:ygoprodeck/model/carta_model.dart';
 
 class CartaService{
@@ -11,9 +12,9 @@ class CartaService{
         urlApi=DotEnv.dotenv.get("API_YUGUIO");
    }
   
-  Future<CardResponse>consultarArquetipos()async{
+  Future<List<ArquitepoDto>>consultarArquetipos()async{
     
-    CardResponse? cardResponse;
+    List<ArquitepoDto>arquiteposDTO;
     
     String url1="${urlApi}/v7/archetypes.php";
     
@@ -24,13 +25,15 @@ class CartaService{
         'Content-Type':'application/json',
         });
         
-        cardResponse=cardResponseFromJson(utf8.decode(response.bodyBytes));
+        arquiteposDTO=arquitepoDtoFromJson(utf8.decode(response.bodyBytes));
+        
+
         
       }catch(ex){
          throw ExceptionControlada(ex.toString());
       }
       
-      return cardResponse;
+      return arquiteposDTO;
   }
 
 }
