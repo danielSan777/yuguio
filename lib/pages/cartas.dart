@@ -4,6 +4,7 @@ import 'package:ygoprodeck/const/const.dart';
 import 'package:ygoprodeck/providers/CartaProvider.dart';
 import 'package:ygoprodeck/widgets/cartaCarrusel.dart';
 import 'package:provider/provider.dart';
+import 'package:ygoprodeck/widgets/combo_arquetipos.dart';
 
 class CartaPage  extends StatefulWidget{
   
@@ -16,6 +17,7 @@ class _CartaPageState extends State<CartaPage>{
   
   @override
   Widget build(BuildContext context){
+     final size=MediaQuery.of(context).size;
     final cartaProvider=Provider.of<CartaProvider>(context);
     cartaProvider.cargaInicial();
     return Scaffold(
@@ -25,9 +27,19 @@ class _CartaPageState extends State<CartaPage>{
         backgroundColor:Colors.blue,
         centerTitle:true,
       ),
-      body:const Column(
+      body:Column(
         children:[
-           CartaCarrusel()
+        Container(
+            width:size.width,
+            height:70,
+            margin: const EdgeInsets.all(10),
+            child:const Row(
+              children:[
+                Expanded(child: ComboArquetipos()),
+               ],
+             ),
+          ),
+          const CartaCarrusel()
         ],
       )
     );

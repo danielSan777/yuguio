@@ -21,7 +21,7 @@ class _CartaCarruselState extends State<CartaCarrusel>{
     return SafeArea(
       child:Container(
          width:double.infinity,
-         height:size.height*0.8,
+         height:size.height*0.6,
          color:Colors.red,
          child:Swiper(itemCount:10,
          layout:SwiperLayout.STACK,

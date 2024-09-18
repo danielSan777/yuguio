@@ -17,7 +17,7 @@ class CartaService{
     List<ArquitepoDto>arquiteposDTO;
     
     String url1="${urlApi}/v7/archetypes.php";
-    
+      
       try{
         
         var url=Uri.parse(url1);
