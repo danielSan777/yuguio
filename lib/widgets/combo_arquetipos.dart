@@ -32,6 +32,10 @@ class ComboArquetipos extends StatelessWidget{
             ),
           ),
         ),
+            onChanged:(ArquitepoDto? a){
+               
+                arquetipo.cargarCartasPorArquitepos(arquitepo:a!.archetypeName);
+            },
             items:arquetipo.listArquitepos,
             itemAsString:(ArquitepoDto arquetipo)=>
             arquetipo.archetypeName,

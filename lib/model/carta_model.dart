@@ -21,26 +21,27 @@ class CardResponse{
 }
 
 class CardDTO{
-    int id;
-    String name;
-    String typeline;
-    String type;
-    String humanReadableCardType;
-    String frameType;
-    String desc;
-    String race;
-    String? pendDesc;
-    String? monsterDesc;
-    int atk;
-    int def;
-    int level;
-    String attribute;
-    String archetype;
-    int? scale;
-    String ygoprodeckUrl;
-    List<CardSet> cardSets;
-    List<CardImage> cardImages;
-    List<CardPrice> cardPrices;
+    dynamic id;
+    String? name;
+    List<dynamic>?typeline;
+    dynamic type;
+    dynamic humanReadableCardType;
+    dynamic frameType;
+    dynamic desc;
+    dynamic race;
+    dynamic pendDesc;
+    dynamic monsterDesc;
+    dynamic atk;
+    dynamic def;
+    dynamic level;
+    dynamic linkval;
+    dynamic attribute;
+    dynamic archetype;
+    dynamic scale;
+    dynamic ygoprodeckUrl;
+    List<CardSet>? cardSets;
+    List<CardImage>? cardImages;
+    List<CardPrice>? cardPrices;
    
    CardDTO({
         required this.id,
@@ -59,6 +60,7 @@ class CardDTO{
         required this.attribute,
         required this.archetype,
         this.scale,
+        this.linkval,
         required this.ygoprodeckUrl,
         required this.cardSets,
         required this.cardImages,
@@ -78,14 +80,21 @@ class CardDTO{
         monsterDesc: json["monster_desc"],
         atk: json["atk"],
         def: json["def"],
+        linkval:json["linkval"],
         level: json["level"],
         attribute:json["attribute"],
         archetype:json["archetype"],
         scale: json["scale"],
         ygoprodeckUrl: json["ygoprodeck_url"],
-        cardSets: List<CardSet>.from(json["card_sets"].map((x) => CardSet.fromJson(x))),
-        cardImages: List<CardImage>.from(json["card_images"].map((x) => CardImage.fromJson(x))),
-        cardPrices: List<CardPrice>.from(json["card_prices"].map((x) => CardPrice.fromJson(x))),
+        cardSets:json.containsKey('card_sets') && json['card_sets'] != null
+         ?List<CardSet>.from(json['card_sets'].map((x)=>CardSet.fromJson(x)))
+         :null,
+        cardImages:json.containsKey('card_images') && json['card_images'] != null
+         ?List<CardImage>.from(json['card_images'].map((x) => CardImage.fromJson(x)))
+         :null,
+        cardPrices:json.containsKey("card_prices") && json["card_prices"] != null
+         ? List<CardPrice>.from(json["card_prices"].map((x) => CardPrice.fromJson(x)))
+         : null,
     );
     
     Map<String,dynamic>toJson()=>{
@@ -106,10 +115,22 @@ class CardDTO{
         "archetype":archetype,
         "scale":scale,
         "ygoprodeck_url":ygoprodeckUrl,
-        "card_sets":List<dynamic>.from(cardSets.map((x) => x.toJson())),
-        "card_images":List<dynamic>.from(cardImages.map((x) => x.toJson())),
-        "card_prices":List<dynamic>.from(cardPrices.map((x) => x.toJson())),
+        "card_sets":   List<dynamic>.from(cardSets!.map((x) => x.toJson())),
+        "card_images": List<dynamic>.from(cardImages!.map((x) => x.toJson())),
+        "card_prices": List<dynamic>.from(cardPrices!.map((x) => x.toJson())),
     };
+    
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is CardDTO &&
+          runtimeType==other.runtimeType &&
+          id==other.id;
+  
+  @override
+  int get hashCode=>id.hashCode??0;
+
+
 }
 
 

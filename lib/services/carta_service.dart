@@ -35,6 +35,60 @@ class CartaService{
       
       return arquiteposDTO;
   }
+  
+  
+  Future<CardResponse>consultarCartas({required String arquitepo})async{
+    
+    CardResponse? cartaResponse;
+    
+    String url1="${urlApi}/v7/cardinfo.php?archetype=${arquitepo}";
+      
+      try{
+        
+        var url=Uri.parse(url1);
+        final response=await http.get(url, headers:{
+        'Content-Type':'application/json',
+        });
+        cartaResponse=cardResponseFromJson(utf8.decode(response.bodyBytes));
+        
+
+        
+      }catch(ex){
+         throw ExceptionControlada(ex.toString());
+      }
+      
+      return cartaResponse;
+  }
+    
+    Future<CardResponse>consultarCartasLimitadas({required String banlist})async{
+    
+    CardResponse? cartaResponse;
+
+    String url1="${urlApi}/v7/cardinfo.php?banlist=${banlist}";
+      
+      try{
+        
+        var url=Uri.parse(url1);
+        final response=await http.get(url, headers:{
+        'Content-Type':'application/json',
+        });
+        print("cartas limitadas");
+        cartaResponse=cardResponseFromJson(utf8.decode(response.bodyBytes));
+        
+
+        
+      }catch(ex){
+         throw ExceptionControlada(ex.toString());
+      }
+      
+      return cartaResponse;
+  }
+
+
+
+
+
+
 
 }
  
